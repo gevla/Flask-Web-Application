@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import pymysql
 app = Flask(__name__)
 
-dbconn = pymysql.connect('localhost', 'user3', 'password3', 'blogdata')
+dbconn = pymysql.connect('localhost', 'user', 'password', 'database')
 
 @app.route('/')
 def index():
@@ -27,7 +27,7 @@ def submit():
 		fn = request.form['first']
 		ln = request.form['last']
 
-		dbconn = pymysql.connect('localhost', 'user3', 'password3', 'blogdata')
+		dbconn = pymysql.connect('localhost', 'user', 'password', 'database')
 		curs = dbconn.cursor()
 		curs.execute("""INSERT INTO submissions values("%s","%s","%s","%s")"""%(fn, ln, email, message))
 		dbconn.commit()
@@ -36,7 +36,7 @@ def submit():
 	
 @app.route('/responses')
 def fetch():
-	dbconn = pymysql.connect('localhost', 'user3', 'password3', 'blogdata')
+	dbconn = pymysql.connect('localhost', 'user', 'password', 'database')
 	curs = dbconn.cursor()
 	curs.execute("SELECT * FROM submissions")
 	values = curs.fetchall()
